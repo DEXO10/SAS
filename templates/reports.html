@@ -74,6 +74,9 @@
                                 <span class="mono">{{ s.session_date }}</span>
                                 <br>
                                 <small class="muted">{{ s.created_at[11:16] if s.created_at else '' }}</small>
+                                <form method="POST" action="{{ url_for('delete_session', session_id=s.id) }}" class="session-delete-form" onsubmit="return confirm('{{ _('Are you sure you want to clear this session?') }}');">
+                                    <button type="submit" class="session-delete-btn" title="{{ _('Clear Session') }}">{{ _('Clear') }}</button>
+                                </form>
                             </div>
                         </th>
                         {% endfor %}
@@ -135,5 +138,19 @@
 .status-absent { color: #dc2626; }
 .status-late { color: #f59e0b; }
 .inline-edit { display: inline-block; }
+.session-delete-form { margin-top: 6px; }
+.session-delete-btn {
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    padding: 2px 8px;
+    background: #fff5f5;
+    color: #dc2626;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1.2;
+}
+.session-delete-btn:hover {
+    background: #fee2e2;
+}
 </style>
 {% endblock %}

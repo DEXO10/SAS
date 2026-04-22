@@ -1615,6 +1615,33 @@ def save_attendance(session_id):
     conn.close()
     return redirect(url_for('reports', course_id=course_id))
 
+@app.route('/delete_session/<int:session_id>', methods=['POST'])
+@login_required
+def delete_session(session_id):
+    conn = get_db_connection()
+    session_row = conn.execute(
+        'SELECT s.course_id, c.teacher_id FROM sessions s JOIN courses c ON s.course_id = c.id WHERE s.id = ?',
+        (session_id,),
+    ).fetchone()
+
+    if not session_row:
+        conn.close()
+        flash(_('Session not found.'), 'error')
+        return redirect(url_for('dashboard'))
+
+    if session.get('role') == 'teacher' and session_row['teacher_id'] != session.get('user_id'):
+        conn.close()
+        flash(_('Unauthorized.'), 'error')
+        return redirect(url_for('dashboard'))
+
+    conn.execute('DELETE FROM attendance WHERE session_id = ?', (session_id,))
+    conn.execute('DELETE FROM sessions WHERE id = ?', (session_id,))
+    conn.commit()
+    conn.close()
+
+    flash(_('Session deleted successfully.'), 'success')
+    return redirect(url_for('reports', course_id=session_row['course_id']))
+
 @app.route('/reports/<int:course_id>')
 @login_required
 def reports(course_id):
