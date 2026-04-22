@@ -13,7 +13,7 @@
         </div>
         <div class="actions">
             <a class="btn btn-secondary" href="{{ url_for('course_detail', course_id=course.id) }}">{{ _('Back') }}</a>
-            <a class="btn btn-primary" href="{{ url_for('export_course_csv', course_id=course.id) }}{{ export_query }}">{{ _('Export CSV') }}</a>
+            <a class="btn btn-primary" href="{{ url_for('export_course_excel', course_id=course.id) }}{{ export_query }}">{{ _('Export Excel') }}</a>
         </div>
     </div>
 

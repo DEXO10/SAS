@@ -5,6 +5,9 @@ import csv
 import io
 import hashlib
 import os
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Font
+from openpyxl.utils import get_column_letter
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-here-change-in-production')
@@ -1945,6 +1948,172 @@ def export_course_csv(course_id):
     return Response(
         out,
         mimetype='text/csv',
+        headers={'Content-Disposition': f'attachment; filename={filename}'},
+    )
+
+
+@app.route('/export/course/<int:course_id>.xlsx')
+@login_required
+def export_course_excel(course_id):
+    from_date = _parse_date(request.args.get('from'))
+    to_date = _parse_date(request.args.get('to'))
+    status_filter = (request.args.get('status') or '').strip()
+    if status_filter not in ('Present', 'Absent', 'Late'):
+        status_filter = ''
+
+    conn = get_db_connection()
+    course = conn.execute(
+        """
+        SELECT c.*, s.name as stage_name, sem.name as semester_name, d.name as dept_name
+        FROM courses c
+        JOIN stages s ON c.stage_id = s.id
+        JOIN semesters sem ON c.semester_id = sem.id
+        JOIN departments d ON s.department_id = d.id
+        WHERE c.id = ?
+        """,
+        (course_id,),
+    ).fetchone()
+
+    if not course:
+        conn.close()
+        return redirect(url_for('dashboard'))
+
+    user_role = session.get('role')
+    user_id = session.get('user_id')
+    if user_role == 'teacher' and course['teacher_id'] != user_id:
+        log_audit(conn, user_id, 'unauthorized_access', 'export_course_excel', course_id, 'Teacher tried to export unauthorized course excel')
+        conn.commit()
+        conn.close()
+        flash(_('Unauthorized.'), 'error')
+        return redirect(url_for('dashboard'))
+
+    session_params = [course_id]
+    session_where = ["course_id = ?"]
+    if from_date:
+        session_where.append("session_date >= ?")
+        session_params.append(from_date)
+    if to_date:
+        session_where.append("session_date <= ?")
+        session_params.append(to_date)
+
+    sessions = conn.execute(
+        f"SELECT * FROM sessions WHERE {' AND '.join(session_where)} ORDER BY session_date ASC, created_at ASC",
+        session_params,
+    ).fetchall()
+
+    session_ids = [s['id'] for s in sessions]
+    all_enrolled = _enrolled_students(conn, course_id)
+
+    if status_filter and session_ids:
+        placeholders = ', '.join(['?'] * len(session_ids))
+        query = f"""
+            SELECT DISTINCT student_id
+            FROM attendance
+            WHERE session_id IN ({placeholders}) AND status = ?
+        """
+        filtered_student_ids = [r['student_id'] for r in conn.execute(query, session_ids + [status_filter]).fetchall()]
+        students = [s for s in all_enrolled if s['id'] in filtered_student_ids]
+    else:
+        students = all_enrolled
+
+    matrix = []
+    for student in students:
+        row = {
+            'id': student['id'],
+            'name': student['name'],
+            'statuses': [],
+            'present_count': 0,
+            'absent_count': 0,
+            'late_count': 0,
+        }
+
+        for sess in sessions:
+            att = conn.execute(
+                'SELECT status FROM attendance WHERE session_id = ? AND student_id = ?',
+                (sess['id'], student['id']),
+            ).fetchone()
+            status = att['status'] if att else None
+
+            if status == 'Present':
+                row['present_count'] += 1
+            elif status == 'Absent':
+                row['absent_count'] += 1
+            elif status == 'Late':
+                row['late_count'] += 1
+
+            display_status = status
+            if status_filter and status != status_filter:
+                display_status = None
+
+            symbol = '?'
+            if display_status == 'Present':
+                symbol = '✓'
+            elif display_status == 'Absent':
+                symbol = '✗'
+            elif display_status == 'Late':
+                symbol = '-'
+
+            row['statuses'].append({'session_id': sess['id'], 'symbol': symbol})
+
+        total_sessions = len(sessions)
+        if total_sessions > 0:
+            row['presence_rate'] = round(((row['present_count'] + row['late_count']) / total_sessions) * 100, 1)
+            row['absence_rate'] = round((row['absent_count'] / total_sessions) * 100, 1)
+        else:
+            row['presence_rate'] = 0
+            row['absence_rate'] = 0
+
+        matrix.append(row)
+
+    conn.close()
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Overall Attendance'
+
+    headers = [_('Student Name'), _('Stage')]
+    for sess in sessions:
+        session_time = sess['created_at'][11:16] if sess['created_at'] else ''
+        headers.append(f"{sess['session_date']} {session_time}".strip())
+    headers.extend([_('Total Present'), _('Total Absent'), _('Presence %%'), _('Absence %%')])
+
+    ws.append(headers)
+
+    for row in matrix:
+        excel_row = [row['name'], course['stage_name']]
+        excel_row.extend([stat['symbol'] for stat in row['statuses']])
+        excel_row.extend([
+            row['present_count'] + row['late_count'],
+            row['absent_count'],
+            f"{row['presence_rate']}%",
+            f"{row['absence_rate']}%",
+        ])
+        ws.append(excel_row)
+
+    for cell in ws[1]:
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True)
+
+    for row_cells in ws.iter_rows(min_row=2, max_row=ws.max_row):
+        for cell in row_cells:
+            cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    if ws.max_column >= 1:
+        ws.column_dimensions['A'].width = 30
+    if ws.max_column >= 2:
+        ws.column_dimensions['B'].width = 20
+    for col in range(3, ws.max_column + 1):
+        col_letter = get_column_letter(col)
+        ws.column_dimensions[col_letter].width = 14
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+
+    filename = f"course_{course_id}_overall_report.xlsx"
+    return Response(
+        buf.getvalue(),
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         headers={'Content-Disposition': f'attachment; filename={filename}'},
     )
 

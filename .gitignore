@@ -9,9 +9,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-*.db
-*.sqlite
-*.sqlite3
 .DS_Store
 .vscode/
 .idea/
