@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Reports') }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Reports') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ _('Choose a course') }}</h2>
+            <p class="muted">{{ _('Open a course report to view sessions, charts, and export CSV.') }}</p>
+        </div>
+    </div>
+
+    {% if courses %}
+    <div class="grid cards">
+        {% for course in courses %}
+        <div class="card">
+            <div class="card-title">{{ course.course_name }}</div>
+            <div class="card-actions">
+                <a class="btn btn-primary" href="{{ url_for('reports', course_id=course.id) }}">{{ _('Open report') }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card empty">
+        <div class="empty-title">{{ _('No courses found') }}</div>
+        <div class="muted">{{ _('Create a course on the Dashboard first.') }}</div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

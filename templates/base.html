@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ 'rtl' if lang == 'ar' else 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ _('Student Attendance System') }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+    {% if session.logged_in %}
+    <div class="app-shell" id="appShell">
+        <aside class="sidebar" id="sidebar" aria-label="Primary">
+            <div class="sidebar-top">
+                <a class="brand" href="{{ url_for('dashboard') }}">
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo" class="brand-logo">
+                    <span class="brand-text">{{ _('Student Attendance') }}</span>
+                </a>
+                <button class="icon-btn" id="sidebarToggle" type="button" aria-label="Toggle sidebar" aria-expanded="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+                        <path d="M4 6h16" />
+                        <path d="M4 12h16" />
+                        <path d="M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav">
+                <a class="nav-item {% if request.path == '/' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12l9-9 9 9" />
+                            <path d="M9 21V9h6v12" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Dashboard') }}</span>
+                </a>
+
+                {% if session.role in ['admin', 'department_head'] %}
+                <a class="nav-item {% if request.path.startswith('/students') %}active{% endif %}" href="{{ url_for('students_registry') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Students') }}</span>
+                </a>
+                {% endif %}
+
+                <a class="nav-item {% if request.path == '/courses' %}active{% endif %}" href="{{ url_for('courses_list') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19h16" />
+                            <path d="M4 5h16" />
+                            <path d="M6 5v14" />
+                            <path d="M18 5v14" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Courses') }}</span>
+                </a>
+
+                <a class="nav-item {% if request.path.startswith('/reports') %}active{% endif %}" href="{{ url_for('reports_home') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M7 14l3-3 4 4 6-7" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Reports') }}</span>
+                </a>
+
+                {% if session.role in ['admin', 'department_head'] %}
+                <a class="nav-item {% if request.path.startswith('/settings') %}active{% endif %}" href="{{ url_for('settings') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7z" />
+                            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-1.4 3.4h-.2a1.8 1.8 0 0 0-1.7 1.2 2 2 0 0 1-3.8 0 1.8 1.8 0 0 0-1.7-1.2H9a2 2 0 0 1-1.4-3.4l.1-.1A1.7 1.7 0 0 0 8 15a1.8 1.8 0 0 0-1.2-1.7 2 2 0 0 1 0-3.8A1.8 1.8 0 0 0 8 7.8a1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 0 1 9 2.4h.2a1.8 1.8 0 0 0 1.7-1.2 2 2 0 0 1 3.8 0 1.8 1.8 0 0 0 1.7 1.2h.2a2 2 0 0 1 1.4 3.4l-.1.1A1.7 1.7 0 0 0 16 7.8c0 .7.4 1.4 1.2 1.7a2 2 0 0 1 0 3.8A1.8 1.8 0 0 0 19.4 15z" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Settings') }}</span>
+                </a>
+                {% endif %}
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="user-info">
+                    <div class="user-name">{{ session.full_name }}</div>
+                    <div class="user-role">{{ session.role.replace('_', ' ').title() }}</div>
+                </div>
+                <a class="nav-item" href="{{ url_for('logout') }}">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <path d="M16 17l5-5-5-5" />
+                            <path d="M21 12H9" />
+                        </svg>
+                    </span>
+                    <span class="nav-text">{{ _('Logout') }}</span>
+                </a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="topbar">
+                <div class="topbar-title">{% block page_title %}{% endblock %}</div>
+                <div class="topbar-actions" style="margin-left:auto; display:flex; gap:16px; align-items:center;">
+                    {% if lang == 'en' %}
+                        <a href="{{ url_for('setlang', lang='ar') }}" class="btn btn-secondary" style="text-decoration:none; padding:4px 8px; border-radius:4px; font-weight:bold;">عربي</a>
+                    {% else %}
+                        <a href="{{ url_for('setlang', lang='en') }}" class="btn btn-secondary" style="text-decoration:none; padding:4px 8px; border-radius:4px; font-weight:bold;">EN</a>
+                    {% endif %}
+                </div>
+            </header>
+            <main class="content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% else %}
+    <main class="auth">
+        {{ self.content() }}
+    </main>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Teacher Dashboard') }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Teacher Dashboard') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ _('Teacher Dashboard') }}</h2>
+            <p class="muted">{{ _('High-level overview of your courses and attendance metrics.') }}</p>
+        </div>
+    </div>
+
+    <!-- Quick Metrics -->
+    <div class="grid cards" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 24px;">
+        <div class="card metric-card">
+            <div class="muted" style="font-size: 14px;">{{ _('Assigned Courses') }}</div>
+            <div class="h1">{{ courses|length }}</div>
+            <a href="{{ url_for('courses_list') }}" class="link" style="font-size: 13px;">{{ _('View All Courses') }} →</a>
+        </div>
+        {% set total_sessions = namespace(count=0) %}
+        {% for c in courses %}{% set total_sessions.count = total_sessions.count + c.session_count %}{% endfor %}
+        <div class="card metric-card">
+            <div class="muted" style="font-size: 14px;">{{ _('Total Sessions Held') }}</div>
+            <div class="h1">{{ total_sessions.count }}</div>
+        </div>
+    </div>
+
+    <div class="page-head">
+        <h3 class="h3">{{ _('Recent Courses Performance') }}</h3>
+    </div>
+
+    {% if courses %}
+    <div class="grid cards">
+        {% for course in courses %}
+        <div class="card" style="padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <div>
+                    <div class="card-title" style="font-size: 16px;">{{ course.course_name }}</div>
+                    <div class="muted" style="font-size: 12px;">{{ course.stage_name }}</div>
+                </div>
+                <div class="badge badge-secondary">{{ course.session_count }} {{ _('Sessions') }}</div>
+            </div>
+            
+            <div class="attendance-metrics">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px;">
+                    <span>{{ _('Presence') }}</span>
+                    <span class="status-present">{{ course.presence_rate }}%</span>
+                </div>
+                <div class="progress-bg" style="height: 4px; background: #f3f4f6; border-radius: 2px; overflow: hidden; margin-bottom: 8px;">
+                    <div class="progress-fill" style="height: 100%; width: {{ course.presence_rate }}%; background: #16a34a;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 12px; display: flex; gap: 8px;">
+                <a class="btn btn-secondary btn-sm" href="{{ url_for('course_detail', course_id=course.id) }}" style="flex: 1;">{{ _('Open') }}</a>
+                <a class="btn btn-ghost btn-sm" href="{{ url_for('start_attendance', course_id=course.id) }}" style="flex: 1;">{{ _('Start') }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card empty">
+        <div class="empty-title">{{ _('No courses found') }}</div>
+        <div class="muted">{{ _('No courses match your filter or are assigned to you.') }}</div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

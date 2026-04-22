@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Courses') }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Courses') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ _('Courses List') }}</h2>
+            <p class="muted">{{ _('Manage your courses and view attendance details.') }}</p>
+        </div>
+        {% if session.role in ['admin', 'department_head'] %}
+        <button class="btn btn-primary" onclick="toggleAddCourse()">{{ _('Add Course') }}</button>
+        {% endif %}
+    </div>
+
+    <div class="actions" style="margin-bottom: 24px;">
+        <form method="GET" action="{{ url_for('courses_list') }}" class="inline-form" id="filterForm">
+            <select name="stage_id" class="input" onchange="this.form.submit()">
+                <option value="">{{ _('All Stages') }}</option>
+                {% for s in stages %}
+                <option value="{{ s.id }}" {% if current_stage == s.id|string %}selected{% endif %}>{{ s.name }} {% if s.dept_name %}({{ s.dept_name }}){% endif %}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    {% if session.role in ['admin', 'department_head'] %}
+    <div class="card" id="addCourseCard" style="display: none; margin-bottom: 24px;">
+        <div class="card-title">{{ _('Create New Course') }}</div>
+        <form method="POST" action="{{ url_for('add_course') }}" class="grid form-grid">
+            <div class="field">
+                <label>{{ _('Course Name') }}</label>
+                <input class="input" type="text" name="course_name" placeholder="{{ _('e.g. Mathematics') }}" required>
+            </div>
+            <div class="field">
+                <label>{{ _('Stage') }}</label>
+                <select class="input" name="stage_id" required>
+                    <option value="">-- {{ _('Select Stage') }} --</option>
+                    {% for s in stages %}
+                    <option value="{{ s.id }}">{{ s.name }} {% if s.dept_name %}({{ s.dept_name }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>{{ _('Semester') }}</label>
+                <select class="input" name="semester_id" required>
+                    <option value="">-- {{ _('Select Semester') }} --</option>
+                    {% for sem in semesters %}
+                    <option value="{{ sem.id }}">{{ sem.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>{{ _('Teacher') }}</label>
+                <select class="input" name="teacher_id">
+                    <option value="">-- {{ _('Select Teacher (Optional)') }} --</option>
+                    {% for t in teachers %}
+                    <option value="{{ t.id }}">{{ t.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field form-actions">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary" type="submit">{{ _('Create Course') }}</button>
+                <button type="button" class="btn btn-ghost" onclick="toggleAddCourse()">{{ _('Cancel') }}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if courses %}
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ _('Course Name') }}</th>
+                    <th>{{ _('Stage') }}</th>
+                    <th>{{ _('Semester') }}</th>
+                    {% if session.role != 'teacher' %}
+                    <th>{{ _('Teacher') }}</th>
+                    {% endif %}
+                    <th>{{ _('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td><strong>{{ course.course_name }}</strong></td>
+                    <td>{{ course.stage_name }}</td>
+                    <td>{{ course.semester_name }}</td>
+                    {% if session.role != 'teacher' %}
+                    <td>{{ course.teacher_name or _('Not assigned') }}</td>
+                    {% endif %}
+                    <td class="actions-cell">
+                        <a class="btn btn-secondary btn-sm" href="{{ url_for('course_detail', course_id=course.id) }}">{{ _('Open') }}</a>
+                        {% if session.role in ['admin', 'department_head'] %}
+                        <a class="btn btn-ghost btn-sm" href="{{ url_for('course_detail', course_id=course.id) }}">{{ _('Edit') }}</a>
+                        <form method="POST" action="{{ url_for('delete_course', course_id=course.id) }}" style="display: inline;" onsubmit="return confirm('{{ _('Are you sure you want to delete this course? This will remove all sessions, attendance records, and enrollments.') }}');">
+                            <button type="submit" class="btn btn-danger btn-sm">{{ _('Delete') }}</button>
+                        </form>
+                        {% endif %}
+                        <a class="btn btn-ghost btn-sm" href="{{ url_for('reports', course_id=course.id) }}">{{ _('Reports') }}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="card empty">
+        <div class="empty-title">{{ _('No courses found') }}</div>
+        <div class="muted">{{ _('No courses match your filter or are assigned.') }}</div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function toggleAddCourse() {
+    const card = document.getElementById('addCourseCard');
+    card.style.display = card.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+{% endblock %}

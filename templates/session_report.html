@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Session Report') }} - {{ session.session_date }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Session Report') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ session.course_name }}</h2>
+            <p class="muted">{{ session.session_date }}</p>
+        </div>
+        <div class="actions">
+            <a class="btn btn-secondary" href="{{ url_for('reports', course_id=session.course_id) }}">{{ _('Back') }}</a>
+            <a class="btn btn-primary" href="{{ url_for('export_session_csv', session_id=session.id) }}">{{ _('Export CSV') }}</a>
+        </div>
+    </div>
+
+    <div class="grid two">
+        <div class="card">
+            <div class="card-title">{{ _('Totals') }}</div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-k">{{ _('Present') }}</div>
+                    <div class="stat-v">{{ totals['Present'] }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-k">{{ _('Absent') }}</div>
+                    <div class="stat-v">{{ totals['Absent'] }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-k">{{ _('Late') }}</div>
+                    <div class="stat-v">{{ totals['Late'] }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">{{ _('Chart') }}</div>
+            <div class="chart-wrap">{{ status_chart|safe }}</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">{{ _('Student attendance') }}</div>
+        {% if attendance_records %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ _('Name') }}</th>
+                        <th>{{ _('Student ID') }}</th>
+                        <th>{{ _('Email') }}</th>
+                        <th>{{ _('Status') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance_records %}
+                    <tr>
+                        <td>{{ record.name }}</td>
+                        <td class="mono">{{ record.student_uid or '' }}</td>
+                        <td>{{ record.email or '' }}</td>
+                        <td><span class="chip chip-{{ record.status|lower }}">{{ record.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty">
+            <div class="empty-title">{{ _('No records found') }}</div>
+            <div class="muted">{{ _('Take attendance for this session first.') }}</div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

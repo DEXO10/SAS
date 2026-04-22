@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Mark Attendance') }} - {{ session.course_name }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Attendance') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ _('Mark attendance') }}</h2>
+            <p class="muted">{{ session.course_name }} · {{ session.session_date }}{% if session.created_at %} · {{ _('Started at') }} {{ session.created_at[11:16] }}{% endif %}</p>
+        </div>
+        <div class="actions">
+            <a class="btn btn-secondary" href="{{ url_for('course_detail', course_id=session.course_id) }}">{{ _('Back') }}</a>
+        </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('save_attendance', session_id=session.id) }}" class="card stack" id="attendanceForm">
+        {% if students %}
+        <div class="bulk-actions">
+            <div class="bulk-actions-left">
+                <label class="check">
+                    <input type="checkbox" id="selectAll">
+                    <span class="check-main">
+                        <span class="check-title">{{ _('Select all') }}</span>
+                    </span>
+                </label>
+                <span class="muted" id="selectedCount">{{ _('0 selected') }}</span>
+            </div>
+            <div class="bulk-actions-right">
+                <button type="button" class="btn btn-success btn-sm" onclick="markSelected('Present')">{{ _('Mark Present') }}</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="markSelected('Absent')">{{ _('Mark Absent') }}</button>
+                <button type="button" class="btn btn-warning btn-sm" onclick="markSelected('Late')">{{ _('Mark Late') }}</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px;"></th>
+                        <th>{{ _('Student') }}</th>
+                        <th style="width: 180px;">{{ _('Status') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td><input type="checkbox" class="student-check" data-student-id="{{ student.id }}"></td>
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <select name="status_{{ student.id }}" class="select status-select" data-student-id="{{ student.id }}">
+                                <option value="Present" {% if student.status == 'Present' %}selected{% endif %}>{{ _('Present') }}</option>
+                                <option value="Absent" {% if student.status == 'Absent' or not student.status %}selected{% endif %}>{{ _('Absent') }}</option>
+                                <option value="Late" {% if student.status == 'Late' %}selected{% endif %}>{{ _('Late') }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="actions right">
+            <button class="btn btn-primary" type="submit">{{ _('Save') }}</button>
+        </div>
+        {% else %}
+        <div class="empty">
+            <div class="empty-title">{{ _('No students found') }}</div>
+            <div class="muted">{{ _('Enroll students for this course first.') }}</div>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAll = document.getElementById('selectAll');
+    const checks = document.querySelectorAll('.student-check');
+    const selectedCount = document.getElementById('selectedCount');
+
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            checks.forEach(c => {
+                c.checked = this.checked;
+            });
+            updateCount();
+        });
+    }
+
+    checks.forEach(c => {
+        c.addEventListener('change', updateCount);
+    });
+
+    function updateCount() {
+        const count = document.querySelectorAll('.student-check:checked').length;
+        if (selectedCount) {
+            selectedCount.textContent = count + ' {{ _('selected') }}';
+        }
+    }
+});
+
+function markSelected(status) {
+    const checks = document.querySelectorAll('.student-check:checked');
+    checks.forEach(c => {
+        const studentId = c.dataset.studentId;
+        const select = document.querySelector(`.status-select[data-student-id="${studentId}"]`);
+        if (select) {
+            select.value = status;
+        }
+    });
+}
+</script>
+{% endblock %}

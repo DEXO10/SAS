@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Dashboard') }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Dashboard') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ _('Admin Dashboard') }}</h2>
+            <p class="muted">{{ _('Global system overview and academic performance metrics.') }}</p>
+        </div>
+        <div class="actions">
+            <a href="{{ url_for('courses_list') }}" class="btn btn-secondary">{{ _('Manage All Courses') }}</a>
+            <button class="btn btn-primary" onclick="toggleAddCourse()">{{ _('Quick Add Course') }}</button>
+        </div>
+    </div>
+
+    {% if session.role in ['admin', 'department_head'] %}
+    <div class="card" id="addCourseCard" style="display: none; margin-bottom: 24px;">
+        <div class="card-title">{{ _('Create New Course') }}</div>
+        <form method="POST" action="{{ url_for('add_course') }}" class="grid form-grid">
+            <div class="field">
+                <label>{{ _('Course Name') }}</label>
+                <input class="input" type="text" name="course_name" placeholder="{{ _('e.g. Mathematics') }}" required>
+            </div>
+            <div class="field">
+                <label>{{ _('Stage') }}</label>
+                <select class="input" name="stage_id" required>
+                    <option value="">-- {{ _('Select Stage') }} --</option>
+                    {% for s in stages %}
+                    <option value="{{ s.id }}">{{ s.name }} {% if s.dept_name %}({{ s.dept_name }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>{{ _('Semester') }}</label>
+                <select class="input" name="semester_id" required>
+                    <option value="">-- {{ _('Select Semester') }} --</option>
+                    {% for sem in semesters %}
+                    <option value="{{ sem.id }}">{{ sem.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>{{ _('Teacher') }}</label>
+                <select class="input" name="teacher_id">
+                    <option value="">-- {{ _('Select Teacher (Optional)') }} --</option>
+                    {% for t in teachers %}
+                    <option value="{{ t.id }}">{{ t.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field form-actions">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary" type="submit">{{ _('Create Course') }}</button>
+                <button type="button" class="btn btn-ghost" onclick="toggleAddCourse()">{{ _('Cancel') }}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="page-head">
+        <h3 class="h3">{{ _('System-wide Courses Overview') }}</h3>
+    </div>
+
+    {% if courses %}
+    <div class="grid cards">
+        {% for course in courses %}
+        <div class="card" style="padding: 16px;">
+            <div class="card-title" style="font-size: 16px; margin-bottom: 4px;">{{ course.course_name }}</div>
+            <div class="muted" style="font-size: 12px; margin-bottom: 8px;">
+                {{ course.dept_name }} | {{ course.stage_name }}
+            </div>
+            <div class="muted" style="font-size: 12px; margin-bottom: 12px;">{{ _('Teacher') }}: {{ course.teacher_name or _('No Teacher') }}</div>
+            
+            <div style="margin-top: auto; display: flex; gap: 8px;">
+                <a class="btn btn-secondary btn-sm" href="{{ url_for('course_detail', course_id=course.id) }}" style="flex: 1;">{{ _('Open') }}</a>
+                <a class="btn btn-ghost btn-sm" href="{{ url_for('reports', course_id=course.id) }}" style="flex: 1;">{{ _('Reports') }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card empty">
+        <div class="empty-title">{{ _('No courses yet') }}</div>
+        <div class="muted">{{ _('Courses will appear here once they are assigned to you.') }}</div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function toggleAddCourse() {
+    const card = document.getElementById('addCourseCard');
+    card.style.display = card.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+{% endblock %}

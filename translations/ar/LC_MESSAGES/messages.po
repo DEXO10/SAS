@@ -1,0 +1,1140 @@
+# Arabic translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-04-20 03:19+0300\n"
+"PO-Revision-Date: 2026-04-11 02:56+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ar <LL@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:451
+msgid "Invalid credentials"
+msgstr "بيانات الاعتماد غير صالحة"
+
+#: app.py:478
+msgid "You do not have permission to access this page."
+msgstr "ليس لديك الصلاحية للوصول إلى هذه الصفحة."
+
+#: app.py:765 app.py:974 app.py:1004 app.py:1037
+msgid "Only admins can manage users."
+msgstr "يمكن لمدراء النظام فقط إدارة المستخدمين."
+
+#: app.py:775
+msgid "Username is required."
+msgstr "اسم المستخدم مطلوب."
+
+#: app.py:777 app.py:1043
+msgid "Password must be at least 6 characters."
+msgstr "يجب أن لا تقل كلمة المرور عن 6 أحرف."
+
+#: app.py:779 app.py:1011
+msgid "Full name is required."
+msgstr "الاسم الكامل مطلوب."
+
+#: app.py:781 app.py:1013
+msgid "Invalid role selected."
+msgstr "تم تحديد دور غير صالح."
+
+#: app.py:797
+#, python-brace-format
+msgid "User \"{username}\" created successfully!"
+msgstr "تم إنشاء المستخدم \"{username}\" بنجاح!"
+
+#: app.py:800
+msgid "Username already exists."
+msgstr "اسم المستخدم موجود مسبقاً."
+
+#: app.py:803
+msgid "An error occurred while creating the user."
+msgstr "حدث خطأ أثناء إنشاء المستخدم."
+
+#: app.py:807 app.py:820 app.py:844
+#, fuzzy
+msgid "Only admins can manage departments."
+msgstr "يمكن لمدراء النظام فقط إنشاء أقسام."
+
+#: app.py:814
+msgid "Department created successfully!"
+msgstr "تم إنشاء القسم بنجاح!"
+
+#: app.py:816
+msgid "Error creating department."
+msgstr "خطأ في إنشاء القسم."
+
+#: app.py:826
+#, fuzzy
+msgid "Department name is required."
+msgstr "اسم المستخدم مطلوب."
+
+#: app.py:837
+#, fuzzy
+msgid "Department updated successfully!"
+msgstr "تم إنشاء القسم بنجاح!"
+
+#: app.py:840
+#, fuzzy
+msgid "Error updating department."
+msgstr "خطأ في إنشاء القسم."
+
+#: app.py:851
+msgid "Cannot delete department with active stages. Delete the stages first."
+msgstr ""
+
+#: app.py:860
+#, fuzzy
+msgid "Department deleted successfully!"
+msgstr "تم إنشاء القسم بنجاح!"
+
+#: app.py:863
+msgid "Error deleting department. Ensure it has no dependent records."
+msgstr ""
+
+#: app.py:875
+msgid "Stage created successfully!"
+msgstr "تم إنشاء المرحلة بنجاح!"
+
+#: app.py:877
+msgid "Error creating stage."
+msgstr "خطأ في إنشاء المرحلة."
+
+#: app.py:884 templates/settings.html:345
+#, fuzzy
+msgid "Stage name is required."
+msgstr "اسم المستخدم مطلوب."
+
+#: app.py:890 app.py:914
+#, fuzzy
+msgid "Stage not found."
+msgstr "المستخدم غير موجود."
+
+#: app.py:892 app.py:916 app.py:954 app.py:1102 app.py:1160 app.py:1206
+#: app.py:1217 app.py:1248 app.py:1378 app.py:1447 app.py:1487 app.py:1569
+#: app.py:1600 app.py:1645 app.py:1776 app.py:1822 app.py:1882 app.py:1949
+msgid "Unauthorized."
+msgstr "غير مصرح به."
+
+#: app.py:897
+#, fuzzy
+msgid "Stage updated successfully!"
+msgstr "تم إنشاء المرحلة بنجاح!"
+
+#: app.py:899 app.py:908 app.py:928
+#, fuzzy
+msgid "Invalid stage ID."
+msgstr "معرف المستخدم غير صالح."
+
+#: app.py:902
+#, fuzzy
+msgid "Error updating stage."
+msgstr "خطأ في إنشاء المرحلة."
+
+#: app.py:923
+#, fuzzy, python-brace-format
+msgid "Stage \"{name}\" deleted successfully."
+msgstr "تم حذف الدورة \"{name}\" بنجاح."
+
+#: app.py:926
+msgid "Cannot delete this stage because it is linked to courses or students."
+msgstr ""
+
+#: app.py:931
+#, fuzzy
+msgid "Error deleting stage."
+msgstr "خطأ في إنشاء المرحلة."
+
+#: app.py:935
+msgid "Only admins can create semesters."
+msgstr "يمكن لمدراء النظام فقط إنشاء فصول دراسية."
+
+#: app.py:942
+msgid "Semester created successfully!"
+msgstr "تم إنشاء الفصل الدراسي بنجاح!"
+
+#: app.py:944
+msgid "Error creating semester."
+msgstr "خطأ في إنشاء الفصل الدراسي."
+
+#: app.py:967
+msgid "Semester activated for stage."
+msgstr "تم تفعيل الفصل الدراسي للمرحلة."
+
+#: app.py:969
+msgid "Error activating semester."
+msgstr "خطأ في تفعيل الفصل الدراسي."
+
+#: app.py:981
+msgid "You cannot delete your own account."
+msgstr "لا يمكنك حذف حسابك الخاص."
+
+#: app.py:993
+#, python-brace-format
+msgid "User \"{username}\" deleted successfully!"
+msgstr "تم حذف المستخدم \"{username}\" بنجاح!"
+
+#: app.py:995 app.py:1028 app.py:1055
+msgid "User not found."
+msgstr "المستخدم غير موجود."
+
+#: app.py:997 app.py:1030 app.py:1057
+msgid "Invalid user ID."
+msgstr "معرف المستخدم غير صالح."
+
+#: app.py:1000
+msgid "An error occurred while deleting the user."
+msgstr "حدث خطأ أثناء حذف المستخدم."
+
+#: app.py:1026
+#, python-brace-format
+msgid "User \"{username}\" updated successfully!"
+msgstr "تم تحديث المستخدم \"{username}\" بنجاح!"
+
+#: app.py:1033
+msgid "An error occurred while updating the user."
+msgstr "حدث خطأ أثناء تحديث المستخدم."
+
+#: app.py:1053
+#, python-brace-format
+msgid "Password for \"{username}\" changed successfully!"
+msgstr "تم تغيير كلمة المرور للمستخدم \"{username}\" بنجاح!"
+
+#: app.py:1060
+msgid "An error occurred while changing the password."
+msgstr "حدث خطأ أثناء تغيير كلمة المرور."
+
+#: app.py:1170
+msgid "Course created successfully."
+msgstr "تم إنشاء الدورة بنجاح."
+
+#: app.py:1172
+msgid "Error creating course."
+msgstr "خطأ في إنشاء الدورة."
+
+#: app.py:1184
+msgid "Course name cannot be empty."
+msgstr "لا يمكن أن يكون اسم الدورة فارغاً."
+
+#: app.py:1188
+#, fuzzy
+msgid "Stage is required."
+msgstr "اسم المستخدم مطلوب."
+
+#: app.py:1212
+#, fuzzy
+msgid "Invalid stage selected."
+msgstr "تم تحديد دور غير صالح."
+
+#: app.py:1257
+#, python-brace-format
+msgid "Course \"{name}\" deleted successfully."
+msgstr "تم حذف الدورة \"{name}\" بنجاح."
+
+#: app.py:1367 app.py:1428
+msgid "Name and Stage are required."
+msgstr "الاسم والمرحلة مطلوبان."
+
+#: app.py:1410
+#, python-brace-format
+msgid "Student created successfully! ID: {uid}"
+msgstr "تم إنشاء الطالب بنجاح! المعرف: {uid}"
+
+#: app.py:1412 app.py:1460
+msgid "Student ID or Email already exists."
+msgstr "يوجد طالب بهذا المعرف أو البريد الإلكتروني مسبقاً."
+
+#: app.py:1414
+#, python-brace-format
+msgid "Error creating student: {e}"
+msgstr "خطأ في إنشاء الطالب: {e}"
+
+#: app.py:1438 app.py:1479
+#, fuzzy
+msgid "Student not found."
+msgstr "المستخدم غير موجود."
+
+#: app.py:1457
+#, fuzzy
+msgid "Student updated successfully."
+msgstr "تم إنشاء المرحلة بنجاح!"
+
+#: app.py:1463
+#, fuzzy, python-brace-format
+msgid "Error updating student: {e}"
+msgstr "خطأ في إنشاء الطالب: {e}"
+
+#: app.py:1496
+#, fuzzy, python-brace-format
+msgid "Student \"{name}\" deleted successfully."
+msgstr "تم حذف الدورة \"{name}\" بنجاح."
+
+#: app.py:1499
+#, fuzzy, python-brace-format
+msgid "Error deleting student: {e}"
+msgstr "خطأ في إنشاء الطالب: {e}"
+
+#: app.py:1513
+msgid "Invalid student ID."
+msgstr "معرف الطالب غير صالح."
+
+#: app.py:1754
+msgid "Unauthorized"
+msgstr "غير مصرح به"
+
+#: templates/base.html:6 templates/course_detail.html:3
+#: templates/courses.html:3 templates/dashboard.html:3
+#: templates/dashboard_dept_head.html:3 templates/dashboard_teacher.html:3
+#: templates/login.html:3 templates/mark_attendance.html:3
+#: templates/reports.html:3 templates/reports_home.html:3
+#: templates/session_report.html:3 templates/settings.html:3
+#: templates/students.html:3
+msgid "Student Attendance System"
+msgstr "نظام حضور الطلاب"
+
+#: templates/base.html:17
+msgid "Student Attendance"
+msgstr "حضور الطلاب"
+
+#: templates/base.html:36 templates/dashboard.html:3
+#: templates/dashboard.html:5
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: templates/base.html:49 templates/students.html:3 templates/students.html:5
+msgid "Students"
+msgstr "الطلاب"
+
+#: templates/base.html:62 templates/courses.html:3 templates/courses.html:5
+msgid "Courses"
+msgstr "المقررات"
+
+#: templates/base.html:72 templates/course_detail.html:25
+#: templates/courses.html:105 templates/dashboard.html:80
+#: templates/dashboard_dept_head.html:102 templates/reports.html:3
+#: templates/reports.html:5 templates/reports_home.html:3
+#: templates/reports_home.html:5
+msgid "Reports"
+msgstr "التقارير"
+
+#: templates/base.html:83 templates/settings.html:3 templates/settings.html:5
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: templates/base.html:101
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: templates/course_detail.html:5
+#, fuzzy
+msgid "Course"
+msgstr "الدورات"
+
+#: templates/course_detail.html:17 templates/mark_attendance.html:15
+#: templates/reports.html:15 templates/session_report.html:15
+msgid "Back"
+msgstr "رجوع"
+
+#: templates/course_detail.html:19
+msgid "Edit Course"
+msgstr "تعديل الدورة"
+
+#: templates/course_detail.html:20 templates/courses.html:101
+msgid ""
+"Are you sure you want to delete this course? This will remove all sessions, "
+"attendance records, and enrollments."
+msgstr ""
+"هل أنت متأكد من حذف هذه الدورة؟ سيؤدي ذلك إلى إزالة جميع الجلسات وسجلات "
+"الحضور والطلاب المسجلين."
+
+#: templates/course_detail.html:21 templates/courses.html:102
+#: templates/settings.html:109 templates/settings.html:155
+#: templates/settings.html:264 templates/students.html:120
+msgid "Delete"
+msgstr "حذف"
+
+#: templates/course_detail.html:24
+msgid "Start attendance"
+msgstr "بدء الحضور"
+
+#: templates/course_detail.html:30
+msgid "Edit Course Details"
+msgstr "تعديل تفاصيل الدورة"
+
+#: templates/course_detail.html:33 templates/courses.html:35
+#: templates/courses.html:79 templates/dashboard.html:25
+#: templates/dashboard_dept_head.html:48
+msgid "Course Name"
+msgstr "اسم الدورة"
+
+#: templates/course_detail.html:37 templates/courses.html:39
+#: templates/courses.html:80 templates/dashboard.html:29
+#: templates/dashboard_dept_head.html:52 templates/reports.html:70
+#: templates/settings.html:137 templates/settings.html:170
+#: templates/settings.html:193 templates/students.html:99
+msgid "Stage"
+msgstr "المرحلة"
+
+#: templates/course_detail.html:47
+msgid "Assigned Teacher"
+msgstr "التدريسي المعين"
+
+#: templates/course_detail.html:49
+msgid "Select Teacher"
+msgstr "اختر التدريسي"
+
+#: templates/course_detail.html:56 templates/students.html:154
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: templates/course_detail.html:57 templates/courses.html:68
+#: templates/dashboard.html:58 templates/dashboard_dept_head.html:81
+#: templates/settings.html:294 templates/students.html:155
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/course_detail.html:66
+msgid "Enrolled students"
+msgstr "الطلاب المسجلون"
+
+#: templates/course_detail.html:67
+msgid "student(s)"
+msgstr "طالب"
+
+#: templates/course_detail.html:70
+msgid "Download List"
+msgstr "تحميل القائمة"
+
+#: templates/course_detail.html:72
+msgid "Open registry"
+msgstr "فتح السجل"
+
+#: templates/course_detail.html:82 templates/session_report.html:51
+#: templates/settings.html:77 templates/settings.html:215
+#: templates/students.html:37 templates/students.html:92
+#: templates/students.html:136
+msgid "Name"
+msgstr "الاسم"
+
+#: templates/course_detail.html:83 templates/session_report.html:52
+#: templates/students.html:96
+msgid "Student ID"
+msgstr "الرقم الجامعي"
+
+#: templates/course_detail.html:84 templates/session_report.html:53
+#: templates/students.html:41 templates/students.html:103
+#: templates/students.html:140
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: templates/course_detail.html:100
+#, fuzzy
+msgid "No students enrolled"
+msgstr "لا يوجد طلاب مسجلون"
+
+#: templates/course_detail.html:101
+msgid "Use the enrollment box to assign students to this course."
+msgstr "استخدم مربع التسجيل لإسناد الطلاب إلى هذه الدورة."
+
+#: templates/course_detail.html:109
+msgid "Enroll students"
+msgstr "تسجيل الطلاب"
+
+#: templates/course_detail.html:110
+msgid "Choose students from the full stage list below"
+msgstr "اختر الطلاب من قائمة المرحلة الكاملة أدناه"
+
+#: templates/course_detail.html:117
+msgid "Select All"
+msgstr "تحديد الكل"
+
+#: templates/course_detail.html:118
+msgid "Deselect All"
+msgstr "إلغاء تحديد الكل"
+
+#: templates/course_detail.html:136
+msgid "Enroll selected"
+msgstr "تسجيل المحددين"
+
+#: templates/course_detail.html:140
+msgid "If a student is missing, add them in the Student Registry."
+msgstr "إذا كان طالب مفقوداً، قم بإضافته في سجل الطلاب."
+
+#: templates/course_detail.html:141
+msgid "Add students"
+msgstr "إضافة طلاب"
+
+#: templates/course_detail.html:145
+msgid "Enrollment restricted"
+msgstr "التسجيل مقيّد"
+
+#: templates/course_detail.html:146
+msgid "Only administrators and department heads can enroll students."
+msgstr "يمكن فقط لمدير النظام ورئيس القسم تسجيل الطلاب."
+
+#: templates/courses.html:11
+msgid "Courses List"
+msgstr "قائمة الدورات"
+
+#: templates/courses.html:12
+msgid "Manage your courses and view attendance details."
+msgstr "إدارة الدورات وعرض تفاصيل الحضور."
+
+#: templates/courses.html:15
+msgid "Add Course"
+msgstr "إضافة دورة"
+
+#: templates/courses.html:22 templates/students.html:75
+msgid "All Stages"
+msgstr "جميع المراحل"
+
+#: templates/courses.html:32 templates/dashboard.html:22
+#: templates/dashboard_dept_head.html:45
+msgid "Create New Course"
+msgstr "إنشاء دورة جديدة"
+
+#: templates/courses.html:36 templates/dashboard.html:26
+#: templates/dashboard_dept_head.html:49
+msgid "e.g. Mathematics"
+msgstr "مثال: الرياضيات"
+
+#: templates/courses.html:41 templates/dashboard.html:31
+#: templates/dashboard_dept_head.html:54
+msgid "Select Stage"
+msgstr "اختر المرحلة"
+
+#: templates/courses.html:48 templates/courses.html:81
+#: templates/dashboard.html:38 templates/dashboard_dept_head.html:61
+msgid "Semester"
+msgstr "الفصل الدراسي"
+
+#: templates/courses.html:50 templates/dashboard.html:40
+#: templates/dashboard_dept_head.html:63
+msgid "Select Semester"
+msgstr "اختر الفصل الدراسي"
+
+#: templates/courses.html:57 templates/courses.html:83
+#: templates/dashboard.html:47 templates/dashboard.html:76
+#: templates/dashboard_dept_head.html:70
+msgid "Teacher"
+msgstr "مدرس"
+
+#: templates/courses.html:59 templates/dashboard.html:49
+#: templates/dashboard_dept_head.html:72
+msgid "Select Teacher (Optional)"
+msgstr "اختر التدريسي (اختياري)"
+
+#: templates/courses.html:67 templates/dashboard.html:57
+#: templates/dashboard_dept_head.html:80
+msgid "Create Course"
+msgstr "إنشاء دورة"
+
+#: templates/courses.html:85 templates/settings.html:79
+#: templates/settings.html:137 templates/settings.html:237
+#: templates/students.html:105
+msgid "Actions"
+msgstr "إجراءات"
+
+#: templates/courses.html:95
+msgid "Not assigned"
+msgstr "غير معين"
+
+#: templates/courses.html:98 templates/dashboard.html:79
+#: templates/dashboard_dept_head.html:101 templates/dashboard_teacher.html:58
+msgid "Open"
+msgstr "فتح"
+
+#: templates/courses.html:100 templates/settings.html:104
+#: templates/settings.html:150 templates/students.html:118
+msgid "Edit"
+msgstr "تعديل"
+
+#: templates/courses.html:114 templates/dashboard_teacher.html:66
+#: templates/reports_home.html:29
+msgid "No courses found"
+msgstr "لم يتم العثور على دورات"
+
+#: templates/courses.html:115
+msgid "No courses match your filter or are assigned."
+msgstr "لا توجد دورات تطابق الفلتر أو معينة لك."
+
+#: templates/dashboard.html:11
+msgid "Admin Dashboard"
+msgstr "لوحة تحكم المسؤول"
+
+#: templates/dashboard.html:12
+msgid "Global system overview and academic performance metrics."
+msgstr "نظرة عامة على النظام ومقاييس الأداء الأكاديمي."
+
+#: templates/dashboard.html:15
+msgid "Manage All Courses"
+msgstr "إدارة جميع الدورات"
+
+#: templates/dashboard.html:16 templates/dashboard_dept_head.html:16
+msgid "Quick Add Course"
+msgstr "إضافة دورة سريعة"
+
+#: templates/dashboard.html:65
+msgid "System-wide Courses Overview"
+msgstr "نظرة عامة على الدورات في النظام"
+
+#: templates/dashboard.html:76 templates/dashboard_dept_head.html:97
+msgid "No Teacher"
+msgstr "لا يوجد تدريسي"
+
+#: templates/dashboard.html:87 templates/dashboard_dept_head.html:109
+msgid "No courses yet"
+msgstr "لا توجد دورات بعد"
+
+#: templates/dashboard.html:88
+msgid "Courses will appear here once they are assigned to you."
+msgstr "ستظهر الدورات هنا بمجرد تعيينها لك."
+
+#: templates/dashboard_dept_head.html:3 templates/dashboard_dept_head.html:5
+#: templates/dashboard_dept_head.html:11
+msgid "Department Head Dashboard"
+msgstr "لوحة تحكم رئيس القسم"
+
+#: templates/dashboard_dept_head.html:12
+msgid "Comprehensive metrics and attendance analytics for your department."
+msgstr "مقاييس شاملة وتحليلات الحضور لقسمك."
+
+#: templates/dashboard_dept_head.html:15
+msgid "Manage Courses"
+msgstr "إدارة الدورات"
+
+#: templates/dashboard_dept_head.html:23
+msgid "Total Stages"
+msgstr "إجمالي المراحل"
+
+#: templates/dashboard_dept_head.html:25
+msgid "Manage Stages"
+msgstr "إدارة المراحل"
+
+#: templates/dashboard_dept_head.html:28
+msgid "Lecturers"
+msgstr "التدريسيون"
+
+#: templates/dashboard_dept_head.html:32
+msgid "Total Courses"
+msgstr "إجمالي الدورات"
+
+#: templates/dashboard_dept_head.html:34
+msgid "All Courses"
+msgstr "جميع الدورات"
+
+#: templates/dashboard_dept_head.html:37 templates/settings.html:193
+msgid "Active Semester"
+msgstr "الفصل الدراسي النشط"
+
+#: templates/dashboard_dept_head.html:39
+msgid "Change Active"
+msgstr "تغيير النشط"
+
+#: templates/dashboard_dept_head.html:88
+msgid "Department Courses Overview"
+msgstr "نظرة عامة على دورات القسم"
+
+#: templates/dashboard_dept_head.html:110
+msgid "No courses found for the selected stage/filter."
+msgstr "لم يتم العثور على دورات للمرحلة أو الفلتر المختار."
+
+#: templates/dashboard_teacher.html:3 templates/dashboard_teacher.html:5
+#: templates/dashboard_teacher.html:11
+msgid "Teacher Dashboard"
+msgstr "لوحة تحكم التدريسي"
+
+#: templates/dashboard_teacher.html:12
+msgid "High-level overview of your courses and attendance metrics."
+msgstr "نظرة عامة على دوراتك ومقاييس الحضور."
+
+#: templates/dashboard_teacher.html:19
+msgid "Assigned Courses"
+msgstr "الدورات المعينة"
+
+#: templates/dashboard_teacher.html:21
+msgid "View All Courses"
+msgstr "عرض جميع الدورات"
+
+#: templates/dashboard_teacher.html:26
+msgid "Total Sessions Held"
+msgstr "إجمالي الجلسات المنعقدة"
+
+#: templates/dashboard_teacher.html:32
+msgid "Recent Courses Performance"
+msgstr "أداء الدورات الأخيرة"
+
+#: templates/dashboard_teacher.html:44
+msgid "Sessions"
+msgstr "الجلسات"
+
+#: templates/dashboard_teacher.html:49
+msgid "Presence"
+msgstr "الحضور"
+
+#: templates/dashboard_teacher.html:59
+msgid "Start"
+msgstr "بدء"
+
+#: templates/dashboard_teacher.html:67
+msgid "No courses match your filter or are assigned to you."
+msgstr "لا توجد دورات تطابق الفلتر أو معينة لك."
+
+#: templates/login.html:3
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: templates/login.html:10
+msgid "Welcome Back"
+msgstr "مرحباً بعودتك"
+
+#: templates/login.html:11
+msgid "Sign in to manage courses and attendance"
+msgstr "تسجيل الدخول لإدارة الدورات والحضور"
+
+#: templates/login.html:21 templates/settings.html:31
+#: templates/settings.html:233
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: templates/login.html:26 templates/settings.html:35
+#: templates/settings.html:259
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: templates/login.html:30
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
+#: templates/mark_attendance.html:3
+msgid "Mark Attendance"
+msgstr "تسجيل الحضور"
+
+#: templates/mark_attendance.html:5
+msgid "Attendance"
+msgstr "الحضور"
+
+#: templates/mark_attendance.html:11
+msgid "Mark attendance"
+msgstr "تسجيل الحضور"
+
+#: templates/mark_attendance.html:12
+msgid "Started at"
+msgstr "بدأ في"
+
+#: templates/mark_attendance.html:26
+msgid "Select all"
+msgstr "تحديد الكل"
+
+#: templates/mark_attendance.html:29
+msgid "0 selected"
+msgstr "0 محدد"
+
+#: templates/mark_attendance.html:32
+msgid "Mark Present"
+msgstr "تحديد كحاضر"
+
+#: templates/mark_attendance.html:33
+msgid "Mark Absent"
+msgstr "تحديد كغائب"
+
+#: templates/mark_attendance.html:34
+msgid "Mark Late"
+msgstr "تحديد كمتأخر"
+
+#: templates/mark_attendance.html:43
+msgid "Student"
+msgstr "الطالب"
+
+#: templates/mark_attendance.html:44 templates/reports.html:31
+#: templates/session_report.html:54
+msgid "Status"
+msgstr "الحالة"
+
+#: templates/mark_attendance.html:54 templates/reports.html:34
+#: templates/session_report.html:25
+msgid "Present"
+msgstr "حاضر"
+
+#: templates/mark_attendance.html:55 templates/reports.html:35
+#: templates/session_report.html:29
+msgid "Absent"
+msgstr "غائب"
+
+#: templates/mark_attendance.html:56 templates/reports.html:36
+#: templates/session_report.html:33
+msgid "Late"
+msgstr "متأخر"
+
+#: templates/mark_attendance.html:65 templates/settings.html:150
+#: templates/settings.html:258 templates/settings.html:312
+msgid "Save"
+msgstr "حفظ"
+
+#: templates/mark_attendance.html:69
+#, fuzzy
+msgid "No students found"
+msgstr "لم يتم العثور على جلسات"
+
+#: templates/mark_attendance.html:70
+msgid "Enroll students for this course first."
+msgstr ""
+
+#: templates/mark_attendance.html:98
+#, fuzzy
+msgid "selected"
+msgstr "محدد"
+
+#: templates/reports.html:16 templates/session_report.html:16
+msgid "Export CSV"
+msgstr "تصدير CSV"
+
+#: templates/reports.html:23
+msgid "From"
+msgstr "من"
+
+#: templates/reports.html:27
+msgid "To"
+msgstr "إلى"
+
+#: templates/reports.html:33
+msgid "All"
+msgstr "الكل"
+
+#: templates/reports.html:41 templates/students.html:82
+msgid "Apply"
+msgstr "تطبيق"
+
+#: templates/reports.html:48
+msgid "Overview"
+msgstr "نظرة عامة"
+
+#: templates/reports.html:52
+msgid "Trend"
+msgstr "الاتجاه"
+
+#: templates/reports.html:60
+msgid "Overall Attendance Report"
+msgstr "تقرير الحضور العام"
+
+#: templates/reports.html:61
+msgid "Rows: Students, Columns: Sessions. Click a symbol to edit."
+msgstr "الصفوف: الطلاب، الأعمدة: الجلسات. اضغط على الرمز للتعديل."
+
+#: templates/reports.html:69
+msgid "Student Name"
+msgstr "اسم الطالب"
+
+#: templates/reports.html:80
+msgid "Total Present"
+msgstr "إجمالي الحضور"
+
+#: templates/reports.html:81
+msgid "Total Absent"
+msgstr "إجمالي الغياب"
+
+#: templates/reports.html:82
+#, python-format
+msgid "Presence %%"
+msgstr "نسبة الحضور %%"
+
+#: templates/reports.html:83
+#, python-format
+msgid "Absence %%"
+msgstr "نسبة الغياب %%"
+
+#: templates/reports.html:118
+msgid "No sessions found"
+msgstr "لم يتم العثور على جلسات"
+
+#: templates/reports.html:119
+msgid "Start attendance from the course page."
+msgstr "ابدأ الحضور من صفحة الدورة."
+
+#: templates/reports_home.html:11
+msgid "Choose a course"
+msgstr "اختر دورة"
+
+#: templates/reports_home.html:12
+msgid "Open a course report to view sessions, charts, and export CSV."
+msgstr "افتح تقرير الدورة لعرض الجلسات والمخططات وتصدير CSV."
+
+#: templates/reports_home.html:22
+msgid "Open report"
+msgstr "فتح التقرير"
+
+#: templates/reports_home.html:30
+msgid "Create a course on the Dashboard first."
+msgstr ""
+
+#: templates/session_report.html:3 templates/session_report.html:5
+#, fuzzy
+msgid "Session Report"
+msgstr "الجلسات"
+
+#: templates/session_report.html:22
+#, fuzzy
+msgid "Totals"
+msgstr "إجمالي المراحل"
+
+#: templates/session_report.html:39
+#, fuzzy
+msgid "Chart"
+msgstr "بدء"
+
+#: templates/session_report.html:45
+#, fuzzy
+msgid "Student attendance"
+msgstr "حضور الطلاب"
+
+#: templates/session_report.html:71
+#, fuzzy
+msgid "No records found"
+msgstr "لم يتم العثور على دورات"
+
+#: templates/session_report.html:72
+#, fuzzy
+msgid "Take attendance for this session first."
+msgstr "ابدأ الحضور من صفحة الدورة."
+
+#: templates/settings.html:11
+msgid "User Management"
+msgstr "إدارة المستخدمين"
+
+#: templates/settings.html:12
+msgid "Create, edit, and manage user accounts."
+msgstr "أنشئ حسابات المستخدمين وعدّلها وأدرها."
+
+#: templates/settings.html:26
+msgid "Create New User"
+msgstr "إنشاء مستخدم جديد"
+
+#: templates/settings.html:32
+msgid "Letters, numbers, and underscores only"
+msgstr ""
+
+#: templates/settings.html:32
+msgid "e.g., john_doe"
+msgstr ""
+
+#: templates/settings.html:36 templates/settings.html:291
+msgid "Minimum 6 characters"
+msgstr ""
+
+#: templates/settings.html:39 templates/settings.html:234
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#: templates/settings.html:40
+msgid "e.g., Dr. John Doe"
+msgstr ""
+
+#: templates/settings.html:43 templates/settings.html:235
+msgid "Role"
+msgstr "الدور"
+
+#: templates/settings.html:51 templates/settings.html:137
+#: templates/settings.html:236
+msgid "Department"
+msgstr "القسم"
+
+#: templates/settings.html:53
+msgid "Select Department"
+msgstr "اختر القسم"
+
+#: templates/settings.html:60
+msgid "Create User"
+msgstr "إنشاء مستخدم"
+
+#: templates/settings.html:67
+msgid "Departments"
+msgstr "الأقسام"
+
+#: templates/settings.html:70
+msgid "Department Name"
+msgstr "اسم القسم"
+
+#: templates/settings.html:71
+msgid "Add Department"
+msgstr "إضافة قسم"
+
+#: templates/settings.html:78
+msgid "Department Head"
+msgstr "رئيس القسم"
+
+#: templates/settings.html:90
+#, fuzzy
+msgid "No Head"
+msgstr "رئيس القسم"
+
+#: templates/settings.html:106
+#, fuzzy
+msgid "Are you sure you want to delete this department?"
+msgstr "هل أنت متأكد من حذف هذا المستخدم؟"
+
+#: templates/settings.html:121
+msgid "Academic Stages"
+msgstr "المراحل الأكاديمية"
+
+#: templates/settings.html:124
+msgid "Stage Name"
+msgstr "اسم المرحلة"
+
+#: templates/settings.html:127
+msgid "Select Dept"
+msgstr "اختر القسم"
+
+#: templates/settings.html:133
+msgid "Add Stage"
+msgstr "إضافة مرحلة"
+
+#: templates/settings.html:152
+#, fuzzy
+msgid "Are you sure you want to delete this stage?"
+msgstr "هل أنت متأكد من حذف هذا المستخدم؟"
+
+#: templates/settings.html:166
+msgid "Active Semester Management"
+msgstr "إدارة الفصل الدراسي النشط"
+
+#: templates/settings.html:178
+msgid "Semester to Activate"
+msgstr "الفصل الدراسي للتفعيل"
+
+#: templates/settings.html:187
+msgid "Set Active"
+msgstr "تعيين كنشط"
+
+#: templates/settings.html:193
+msgid "Dept"
+msgstr "القسم"
+
+#: templates/settings.html:207
+msgid "Semesters"
+msgstr "الفصول الدراسية"
+
+#: templates/settings.html:210
+msgid "Semester Name"
+msgstr "اسم الفصل الدراسي"
+
+#: templates/settings.html:211
+msgid "Add Semester"
+msgstr "إضافة فصل دراسي"
+
+#: templates/settings.html:228
+msgid "Existing Users"
+msgstr "المستخدمون الحاليون"
+
+#: templates/settings.html:261
+msgid "Are you sure you want to delete this user?"
+msgstr "هل أنت متأكد من حذف هذا المستخدم؟"
+
+#: templates/settings.html:280 templates/settings.html:295
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+#: templates/settings.html:287
+msgid "User"
+msgstr "المستخدم"
+
+#: templates/settings.html:290
+msgid "New Password"
+msgstr "كلمة المرور الجديدة"
+
+#: templates/students.html:21
+msgid "Student Registry"
+msgstr "سجل الطلاب"
+
+#: templates/students.html:24
+msgid "Add students once, then assign them to courses."
+msgstr "أضف الطلاب مرة واحدة، ثم قم بإسنادهم إلى الدورات."
+
+#: templates/students.html:26
+msgid ""
+"View students. Only administrators and department heads can create or modify"
+" students."
+msgstr ""
+"اعرض الطلاب. يمكن فقط لمدير النظام ورئيس القسم إنشاء الطلاب أو تعديلهم."
+
+#: templates/students.html:34
+msgid "Add student"
+msgstr "إضافة طالب"
+
+#: templates/students.html:45 templates/students.html:144
+msgid "Academic Stage"
+msgstr "المرحلة الأكاديمية"
+
+#: templates/students.html:47 templates/students.html:146
+msgid "Select a stage"
+msgstr "اختر مرحلة"
+
+#: templates/students.html:55
+msgid "Create"
+msgstr "إنشاء"
+
+#: templates/students.html:58
+msgid "Email must be unique. Student ID will be auto-generated."
+msgstr "يجب أن يكون البريد الإلكتروني فريداً. سيتم إنشاء رقم الطالب تلقائياً."
+
+#: templates/students.html:65
+msgid "All students"
+msgstr "جميع الطلاب"
+
+#: templates/students.html:66
+msgid "Search by name, ID, or email."
+msgstr "البحث بالاسم أو الرقم أو البريد الإلكتروني."
+
+#: templates/students.html:71
+msgid "Search..."
+msgstr "بحث..."
+
+#: templates/students.html:119
+#, fuzzy
+msgid ""
+"Are you sure you want to delete this student? This will remove all "
+"attendance and course enrollments for this student."
+msgstr ""
+"هل أنت متأكد من حذف هذه الدورة؟ سيؤدي ذلك إلى إزالة جميع الجلسات وسجلات "
+"الحضور والطلاب المسجلين."
+
+#: templates/students.html:133
+msgid "Edit student"
+msgstr "تعديل الطالب"
+
+#~ msgid "Username can only contain letters, numbers, and underscores."
+#~ msgstr "يمكن أن يحتوي اسم المستخدم على أحرف وأرقام وشرطات سفلية فقط."
+
+#~ msgid "User \"{target_user[\"username\"]}\" deleted successfully!"
+#~ msgstr "تم حذف المستخدم \"{target_user[\\\"username\\\"]}\" بنجاح!"
+
+#~ msgid "User \"{old_user[\"username\"]}\" updated successfully!"
+#~ msgstr "تم تحديث المستخدم \"{old_user[\\\"username\\\"]}\" بنجاح!"
+
+#~ msgid "Invalid course ID."
+#~ msgstr "معرف الدورة غير صالح."
+
+#~ msgid "Admin"
+#~ msgstr "مدير النظام"
+
+#~ msgid "Demo Accounts"
+#~ msgstr "حسابات تجريبية"
+
+#~ msgid "admin / admin123"
+#~ msgstr "admin / admin123"
+
+#~ msgid "dept_head / head123"
+#~ msgstr "dept_head / head123"
+
+#~ msgid "teacher1 / teacher123"
+#~ msgstr "teacher1 / teacher123"
+
+#~ msgid "Search"
+#~ msgstr "بحث"

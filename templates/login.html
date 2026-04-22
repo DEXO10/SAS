@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Login') }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="auth-header">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Isra'a University" class="auth-logo">
+        <div>
+            <h1 class="auth-title">{{ _('Welcome Back') }}</h1>
+            <p class="auth-subtitle">{{ _('Sign in to manage courses and attendance') }}</p>
+        </div>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-error" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" class="stack">
+        <div class="field">
+            <label for="username">{{ _('Username') }}</label>
+            <input class="input" type="text" id="username" name="username" autocomplete="username" required>
+        </div>
+
+        <div class="field">
+            <label for="password">{{ _('Password') }}</label>
+            <input class="input" type="password" id="password" name="password" autocomplete="current-password" required>
+        </div>
+
+        <button class="btn btn-primary" type="submit">{{ _('Sign in') }}</button>
+    </form>
+</div>
+{% endblock %}

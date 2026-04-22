@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Reports') }} - {{ course.course_name }} - {{ _('Student Attendance System') }}{% endblock %}
+
+{% block page_title %}{{ _('Reports') }}{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="page-head">
+        <div>
+            <h2 class="h2">{{ course.course_name }}</h2>
+            <p class="muted">{{ course.dept_name }} | {{ course.stage_name }} | {{ course.semester_name }}</p>
+        </div>
+        <div class="actions">
+            <a class="btn btn-secondary" href="{{ url_for('course_detail', course_id=course.id) }}">{{ _('Back') }}</a>
+            <a class="btn btn-primary" href="{{ url_for('export_course_csv', course_id=course.id) }}{{ export_query }}">{{ _('Export CSV') }}</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <form method="GET" action="{{ url_for('reports', course_id=course.id) }}" class="filters">
+            <div class="field">
+                <label for="from">{{ _('From') }}</label>
+                <input class="input" id="from" name="from" type="date" value="{{ from_date }}">
+            </div>
+            <div class="field">
+                <label for="to">{{ _('To') }}</label>
+                <input class="input" id="to" name="to" type="date" value="{{ to_date }}">
+            </div>
+            <div class="field">
+                <label for="status">{{ _('Status') }}</label>
+                <select class="select" id="status" name="status">
+                    <option value="" {% if not status %}selected{% endif %}>{{ _('All') }}</option>
+                    <option value="Present" {% if status == 'Present' %}selected{% endif %}>{{ _('Present') }}</option>
+                    <option value="Absent" {% if status == 'Absent' %}selected{% endif %}>{{ _('Absent') }}</option>
+                    <option value="Late" {% if status == 'Late' %}selected{% endif %}>{{ _('Late') }}</option>
+                </select>
+            </div>
+            <div class="field filter-actions">
+                <label>&nbsp;</label>
+                <button class="btn btn-secondary" type="submit">{{ _('Apply') }}</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid two">
+        <div class="card">
+            <div class="card-title">{{ _('Overview') }}</div>
+            <div class="chart-wrap">{{ status_chart|safe }}</div>
+        </div>
+        <div class="card">
+            <div class="card-title">{{ _('Trend') }}</div>
+            <div class="chart-wrap">{{ trend_chart|safe }}</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <div>
+                <div class="card-title">{{ _('Overall Attendance Report') }}</div>
+                <div class="muted">{{ _('Rows: Students, Columns: Sessions. Click a symbol to edit.') }}</div>
+            </div>
+        </div>
+        {% if sessions %}
+        <div class="table-wrap">
+            <table class="report-matrix">
+                <thead>
+                    <tr>
+                        <th class="sticky-col">{{ _('Student Name') }}</th>
+                        <th class="summary-col">{{ _('Stage') }}</th>
+                        {% for s in sessions %}
+                        <th class="rotate-head">
+                            <div class="rotate-text">
+                                <span class="mono">{{ s.session_date }}</span>
+                                <br>
+                                <small class="muted">{{ s.created_at[11:16] if s.created_at else '' }}</small>
+                            </div>
+                        </th>
+                        {% endfor %}
+                        <th class="summary-col">{{ _('Total Present') }}</th>
+                        <th class="summary-col">{{ _('Total Absent') }}</th>
+                        <th class="summary-col">{{ _('Presence %%') }}</th>
+                        <th class="summary-col">{{ _('Absence %%') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in matrix %}
+                    <tr>
+                        <td class="sticky-col">{{ row.name }}</td>
+                        <td class="center-text">{{ course.stage_name }}</td>
+                        {% for stat in row.statuses %}
+                        <td class="center-text">
+                            <form method="POST" action="{{ url_for('edit_attendance') }}" class="inline-edit">
+                                <input type="hidden" name="session_id" value="{{ stat.session_id }}">
+                                <input type="hidden" name="student_id" value="{{ row.id }}">
+                                <select name="status" onchange="this.form.submit()" class="matrix-select status-{{ stat.status|lower }}">
+                                    <option value="Present" {% if stat.status == 'Present' %}selected{% endif %}>✓</option>
+                                    <option value="Absent" {% if stat.status == 'Absent' %}selected{% endif %}>✗</option>
+                                    <option value="Late" {% if stat.status == 'Late' %}selected{% endif %}>-</option>
+                                    {% if not stat.status %}
+                                    <option value="" selected>?</option>
+                                    {% endif %}
+                                </select>
+                            </form>
+                        </td>
+                        {% endfor %}
+                        <td class="center-text mono status-present">{{ row.present_count + row.late_count }}</td>
+                        <td class="center-text mono status-absent">{{ row.absent_count }}</td>
+                        <td class="center-text mono"><strong>{{ row.presence_rate }}%</strong></td>
+                        <td class="center-text mono"><strong>{{ row.absence_rate }}%</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty">
+            <div class="empty-title">{{ _('No sessions found') }}</div>
+            <div class="muted">{{ _('Start attendance from the course page.') }}</div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.report-matrix th, .report-matrix td { border: 1px solid #e5e7eb; padding: 8px; }
+.sticky-col { position: sticky; left: 0; background: white; z-index: 10; min-width: 150px; }
+.rotate-head { height: 100px; vertical-align: bottom; text-align: center; }
+.rotate-text { transform: rotate(-45deg); width: 80px; margin-left: auto; margin-right: auto; }
+.center-text { text-align: center; }
+.summary-col { background: #f9fafb; font-weight: bold; min-width: 100px; text-align: center; }
+.matrix-select { border: none; background: transparent; cursor: pointer; font-size: 16px; font-weight: bold; width: 32px; height: 32px; text-align: center; appearance: none; -webkit-appearance: none; }
+.matrix-select:hover { background: #f3f4f6; border-radius: 4px; }
+.status-present { color: #16a34a; }
+.status-absent { color: #dc2626; }
+.status-late { color: #f59e0b; }
+.inline-edit { display: inline-block; }
+</style>
+{% endblock %}
